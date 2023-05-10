@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="top-players">
+            <h2>Top 10 người chơi có điểm cao</h2>
+            <ul>
+                <li *ngFor="let person of highScores; let i = index" [ngClass]="{ 'highlight': i < 3 }">
+                    <span class="rank">{{i+1}}</span>
+                    <span class="name">{{person.name}}</span>
+                    <span class="score">{{person.score}}</span>
+                </li>
+                <br/>
+                <li *ngIf="isLogin" class="user-score">
+                    <span class="rank">
+                        <span class="user-rank">1234</span>
+                    </span>
+                    <span class="name">{{name}}</span>
+                    <span class="score">{{score}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-3"></div>
+</div>

@@ -1,0 +1,193 @@
+<div class="back">
+  <button class="btn btn-outline-success" (click)="goBack()">back</button>
+</div>
+<button
+  type="button"
+  class="btn btn-outline-warning  btn-add-question"
+  (click)="openVerticallyCentered2(content)"
+>
+  add question
+</button>
+<table class="table" style="width: 100%">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Answer</th>
+      <th scope="col">A</th>
+      <th scope="col">B</th>
+      <th scope="col">C</th>
+      <th scope="col">D</th>
+      <th scope="col">correctAnswer</th>
+      <th scope="col">Acction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ques of data.data">
+      <th scope="row">{{ ques.id }}</th>
+      <td>{{ ques.ques }}</td>
+      <td>{{ ques.answerA }}</td>
+      <td>{{ ques.answerB }}</td>
+      <td>{{ ques.answerC }}</td>
+      <td>{{ ques.answerD }}</td>
+      <td>{{ ques.correctAnswer }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-outline-warning"
+          (click)="openVerticallyCentered(content, ques)"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="openScrollableContent(longContent, ques)"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Question</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--infor-->
+    <!-- <form> -->
+    <div class="form-group">
+      <label for="question">Question</label>
+      <input
+        type="text"
+        #nameQuestion
+        value="{{ questionEdit.ques }}"
+        class="form-control"
+        placeholder="Enter Question"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Answer">Answer A</label>
+      <button class="chonse-btn btn btn-outline-success" (click)="chose(answerA.value)">Correct Answer</button>
+      <input
+        type="text"
+        value="{{ questionEdit.answerA }}"
+        #answerA
+        class="form-control"
+        placeholder="Enter answerA"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Answer">Answer B</label>
+      <button class="chonse-btn btn btn-outline-success" (click)="chose(answerB.value)">Correct Answer</button>
+      <input
+        type="text"
+        value="{{ questionEdit.answerB }}"
+        #answerB
+        class="form-control"
+        placeholder="Enter answerB"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Answer">Answer C</label>
+      <button class="chonse-btn btn btn-outline-success" (click)="chose(answerC.value)">Correct Answer</button>
+      <input
+        type="text"
+        value="{{ questionEdit.answerC }}"
+        #answerC
+        class="form-control"
+        placeholder="Enter answerC"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Answer">Answer D</label>
+      <button class="chonse-btn btn btn-outline-success" (click)="chose(answerD.value)">Correct Answer</button>
+      <input
+        type="text"
+        value="{{ questionEdit.answerD }}"
+        #answerD
+        class="form-control"
+        placeholder="Enter answerD"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Answer">Correct Answer</label>
+      <input
+        type="text"
+        value="{{ questionEdit.correctAnswer }}"
+        #correctAnswer
+        class="form-control"
+        placeholder="Enter Correct Answer"
+        disabled
+      />
+    </div>
+    <!-- </form> -->
+    <!--end infor-->
+  </div>
+  <div class="modal-footer">
+    <button
+      *ngIf="!isAddQuestion"
+      type="button"
+      class="btn btn-outline-success"
+      (click)="modal.close('Close click'); changeQuestion(nameQuestion.value, answerA.value, answerB.value, answerC.value, answerD.value)"
+    >
+      Save Change
+    </button>
+    <button
+      *ngIf="isAddQuestion"
+      type="button"
+      class="btn btn-outline-success"
+      (click)="modal.close('Close click'); addQuestion(nameQuestion.value,answerA.value, answerB.value, answerC.value, answerD.value)"
+    >
+      Add Question
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-warning"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" style="color: red">Warning</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h4>Delete Question</h4>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Cacel
+    </button>
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click'); deleteQuestion()"
+    >
+      Agree
+    </button>
+  </div>
+</ng-template>

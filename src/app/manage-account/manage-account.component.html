@@ -1,0 +1,173 @@
+<div class="back">
+    <button class="btn btn-outline-success" (click)="goBack()">back</button>
+</div>
+<button
+  type="button"
+  class="btn btn-outline-warning btn-add-account"
+  (click)="openVerticallyCentered2(content)"
+>
+  add Account
+</button>
+<table class="table" style="width: 100%">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Email</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Acction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let account of data.data">
+      <th scope="row">{{ account.id }}</th>
+      <td>{{ account.userName }}</td>
+      <td>{{ account.nameDisplay }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-outline-warning"
+          (click)="openVerticallyCentered(content, account)"
+        >
+          Edit
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="openScrollableContent(longContent, account)"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Account</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--infor-->
+    <!-- <form> -->
+    <div class="form-group">
+      <label for="question">Email</label>
+      <input
+        type="text"
+        #email
+        value="{{ accountEdit.userName }}"
+        class="form-control"
+        placeholder="Enter Email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Answer">User Name</label>
+      <input
+        type="text"
+        value="{{ accountEdit.nameDisplay }}"
+        #nameDisplay
+        class="form-control"
+        placeholder="Enter username"
+      />
+    </div>
+    <div *ngIf="!isAddAccount" class="form-group">
+      <label for="Answer">Password</label>
+      <input type="checkbox" (change)="changePassword()" />
+      <p>change Password</p>
+      <input
+        *ngIf="ischangePassword"
+        type="text"
+        [(ngModel)]="passwordChange"
+        class="form-control"
+        placeholder="Enter Password"
+      />
+      <input
+        *ngIf="!ischangePassword"
+        disabled
+        type="text"
+        value="Enter Password"
+        #password
+        class="form-control"
+        placeholder="Enter Password"
+      />
+    </div>
+
+    <!--if add account-->
+    <div *ngIf="isAddAccount" class="form-group">
+        <label for="Answer">Password</label>
+        <input
+          type="text"
+          [(ngModel)]="passwordChange"
+          #password
+          class="form-control"
+          placeholder="Enter Password"
+        />
+      </div>
+  
+    <!-- </form> -->
+    <!--end infor-->
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="!isAddAccount"
+      type="button"
+      class="btn btn-outline-success"
+      (click)="modal.close('Close click'); editAcoount(email.value,nameDisplay.value, passwordChange)"
+    >
+      Save Change
+    </button>
+
+    <button *ngIf="isAddAccount"
+      type="button"
+      class="btn btn-outline-success"
+      (click)="modal.close('Close click'); addAccount(email.value, nameDisplay.value, passwordChange)"
+    >
+      Add Account
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-warning"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" style="color: red">Warning</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h4>Delete Question</h4>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click'); deleteAccount()"
+    >
+      Agree
+    </button>
+  </div>
+</ng-template>

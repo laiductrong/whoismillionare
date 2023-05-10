@@ -1,0 +1,18 @@
+<div class="menu">
+    <div class="name-game-container">
+        <div class="name-game-container">
+            <h2 class="name-game">Ai là triệu phú?</h2>
+        </div>
+        <div class="option-container">
+            <div *ngIf="!isAdmin" class="option" routerLink="/playGame">CHƠI NGAY</div>
+            <div *ngIf="!isAdmin" class="option" routerLink="/highScore">ĐIỂM CAO</div>
+            <div class="option" routerLink="/account">TÀI KHOẢN</div>
+            <div *ngIf="isAdmin" class="option" routerLink="/manage-question">MANAGEME QUESTION</div>
+            <div *ngIf="isAdmin" class="option" routerLink="/manage-account">MANAGEME USER</div>
+            <div *ngIf="!isAdmin" class="option">CÀI ĐẶT</div>
+        </div>
+      </div>
+</div>
+  <!--question-container : name-game-container
+    question : name-game
+    answer-container : option-container-->

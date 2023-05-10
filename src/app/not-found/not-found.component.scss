@@ -1,0 +1,20 @@
+.background-notfound {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    background-image: url('../../assets/images/notfound.jpg');
+    background-size: cover;
+    background-position: center;
+    // opacity: 0.5;
+  }
+
+.backHome {
+    position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+  

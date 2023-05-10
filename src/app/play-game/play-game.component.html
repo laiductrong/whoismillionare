@@ -1,0 +1,16 @@
+<div class="question-container">
+
+	<!-- <countdown #myCountdown [config]="{ leftTime: 30, format: 'mm:ss' }"></countdown> -->
+	<countdown #myCountdown [config]="{ leftTime: 30, format: 'mm:ss' }" (event)="handleCountdownEvent($event)"></countdown>
+	<span class="score">{{score}}</span>
+    <div class="question-container">
+		<h2 class="question">{{ques.ques}}</h2>
+	</div>
+	<div class="answer-container">
+		<div class="answer" (click)="handleAnswer(ques.answerA); resetCountdown()">{{ques.answerA}}</div>
+		<div class="answer" (click)="handleAnswer(ques.answerB); resetCountdown()">{{ques.answerB}}</div>
+		<div class="answer" (click)="handleAnswer(ques.answerC); resetCountdown()">{{ques.answerC}}</div>
+		<div class="answer" (click)="handleAnswer(ques.answerD); resetCountdown()">{{ques.answerD}}</div>
+	</div>
+  </div>
+  

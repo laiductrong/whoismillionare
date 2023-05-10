@@ -1,0 +1,32 @@
+<div class="score-wrapper">
+  <div class="score-text">Điểm của bạn là</div>
+  <div class="score-number">{{ score }}</div>
+  <div class="save-score">
+    <h6 *ngIf="!isLogin">Đăng nhập để sử dụng chức năng lưu điểm</h6>
+    <button
+      *ngIf="isLogin"
+      type="button"
+      (click)="saveScore()"
+      class="btn btn-outline-success"
+    >
+      Lưu điểm
+    </button>
+
+    <button
+      *ngIf="!isLogin"
+      type="button"
+      (click)="login()"
+      class="btn btn-outline-success"
+    >
+      Login
+    </button>
+
+    <button
+      type="button"
+      routerLink="/playGame"
+      class="btn btn-outline-warning"
+    >
+      Chơi lại
+    </button>
+  </div>
+</div>

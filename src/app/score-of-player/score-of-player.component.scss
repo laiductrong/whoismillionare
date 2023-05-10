@@ -1,0 +1,25 @@
+.score-wrapper {
+    position: absolute;
+    bottom: 55%; /* thay đổi giá trị này để điều chỉnh khoảng cách với bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+  
+.score-text {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+  
+.score-number {
+    font-size: 72px;
+    font-weight: bold;
+    color: red;
+}
+.btn {
+    width: 150px;
+    margin: 50px;
+}
+  
