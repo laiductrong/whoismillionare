@@ -19,8 +19,8 @@ export class AccountComponent {
     private accountService: AccountServiceService,
     private router: Router,
     private jwtHelper: JwtHelperService
-    // private dataService : DataServiceService
-  ) {
+  ) // private dataService : DataServiceService
+  {
     this.getName();
   }
 
@@ -54,11 +54,15 @@ export class AccountComponent {
   login(email: string, pass: string) {
     this.accountService.Login(email, pass).subscribe((acc) => {
       if (acc.success) {
-        localStorage.removeItem('accoutLogin');
-        const expireTime = new Date().getTime() + 3600 * 1000; // Thời gian hết hạn sau 1 giờ
-        localStorage.setItem('accoutLogin', acc.data);
-        localStorage.setItem('expireTime', expireTime.toString());
-        this.router.navigate(['/']);
+        this.notification = 'Đăng nhập thành công';
+        this.isNotifi = true;
+        setTimeout(() => {
+          localStorage.removeItem('accoutLogin');
+          const expireTime = new Date().getTime() + 3600 * 1000; // Thời gian hết hạn sau 1 giờ
+          localStorage.setItem('accoutLogin', acc.data);
+          localStorage.setItem('expireTime', expireTime.toString());
+          this.router.navigate(['/']);
+        }, 1500);
       } else {
         this.notification = 'Vui lòng kiểm tra lại tài khoản';
         this.isNotifi = true;
@@ -71,12 +75,12 @@ export class AccountComponent {
     password: string,
     repassword: string
   ) {
-    const emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if(!emailRegex.test(email)){
+    const emailRegex =
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (!emailRegex.test(email)) {
       this.notification = 'Email không hợp lệ';
       this.isNotifi = true;
-    }
-    else if (password != repassword) {
+    } else if (password != repassword) {
       this.notification = 'Mật khẩu không khớp';
       this.isNotifi = true;
     } else {
@@ -101,9 +105,7 @@ export class AccountComponent {
     });
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['/']);
   }
-
-
 }

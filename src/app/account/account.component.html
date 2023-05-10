@@ -1,14 +1,14 @@
 <div class="btn-back">
     <button class="btn btn-outline-success" (click)="goBack()">Back</button>
 </div>
-<div class="container">
+<div class="container displayName">
     <fa-icon [icon]="faUser"></fa-icon>
     <div *ngIf="isLoggedIn">
-        <button type="button" class="btn btn-outline-warning" (click)="Logout()">LogOut {{nameUser}}</button>
+        <p>{{nameUser}}</p>
       </div>
       
       <div *ngIf="!isLoggedIn">
-        <p>You are not logged in</p>
+        <p class="not-login">You are not logged in!</p>
       </div>
     <div class="row">
         <div class="col-8"></div>
@@ -28,7 +28,7 @@
                     <div class="card-header">
                         <h4 class="mb-0">Đăng nhập</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="!isLoggedIn">
                     <!-- <form> -->
                         <div class="form-group">
                             <label for="inputEmail" id="email" >Email</label>
@@ -39,8 +39,13 @@
                             <label for="inputPassword">Mật khẩu</label>
                             <input type="password" class="form-control" id="inputPassword" #pass placeholder="Nhập mật khẩu" required autofocus>
                         </div>
-                        <button class="btn btn-primary" (click)="login(email.value,pass.value)">Đăng nhập</button>
+                        <button class="btn btn-outline-primary" (click)="login(email.value,pass.value)">Đăng nhập</button>
                     <!-- </form> -->
+                    </div>
+                    <p *ngIf="isLoggedIn" class="message-logined">you are logged in</p>
+                    <div class="card-body btn-logout" *ngIf="isLoggedIn">
+                        <!-- <p class="message-logined">you are logged in</p> -->
+                        <button type="button" class="btn btn-outline-warning" (click)="Logout()">Logout</button>
                     </div>
                 </div>
                 </div>
@@ -74,7 +79,7 @@
                             <label for="inputPassword">Nhập lại Mật khẩu</label>
                             <input type="password" class="form-control" id="inputRePassword" placeholder="Nhập lại mật khẩu" #repassword>
                         </div>
-                        <button class="btn btn-primary" (click)="Register(emailRegister.value, usernameRegister.value, password.value, repassword.value)">Đăng ký</button>
+                        <button class="btn btn-outline-primary" (click)="Register(emailRegister.value, usernameRegister.value, password.value, repassword.value)">Đăng ký</button>
                     </div>
                 </div>
                 </div>
