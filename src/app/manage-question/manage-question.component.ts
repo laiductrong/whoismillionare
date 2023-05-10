@@ -21,6 +21,8 @@ export class ManageQuestionComponent {
     // private dataService: DataServiceService,
     private modalService: NgbModal
   ) {}
+  //value check model is add question or edit question
+  isAddQuestion = false;
   //save questions from service
   data = new reponServive();
   ngOnInit(): void {
@@ -49,19 +51,22 @@ export class ManageQuestionComponent {
     answerC: string,
     answerD: string
   ) {
+    // let ques = new question();
+    this.questionEdit.id = this.questionEdit.id;
     this.questionEdit.ques = nameQuestion;
     this.questionEdit.answerA = answerA;
     this.questionEdit.answerB = answerB;
     this.questionEdit.answerC = answerC;
     this.questionEdit.answerD = answerD;
-    this.questionService
-      .updateQuestion(this.questionEdit)
-      .subscribe((repon) => {
-        if (repon.success) {
-          // this.reloadData();
+    this.questionService.updateQuestion(this.questionEdit).subscribe((repon) => {
+      if (repon.success) {
+        if (repon.data.length > 0) {
           this.data = repon;
         }
-      });
+      } else {
+        console.log('error');
+      }
+    });
   }
 
   //function set correct answer = A, B, C or D
@@ -69,8 +74,6 @@ export class ManageQuestionComponent {
     this.questionEdit.correctAnswer = correct;
   }
 
-  //value check model is add question or edit question
-  isAddQuestion = false;
   //open model add question
   openVerticallyCentered2(content: any) {
     this.isAddQuestion = true;
@@ -97,9 +100,11 @@ export class ManageQuestionComponent {
 
     this.questionService.addQuestion(newQuestion).subscribe((repon) => {
       if (repon.success) {
-        // this.data = repon.data;
-        // this.reloadData();
-        this.data = repon;
+        if (repon.data.length > 0) {
+          this.data = repon;
+        }
+      } else {
+        console.log('error');
       }
     });
   }
@@ -116,8 +121,11 @@ export class ManageQuestionComponent {
         .deleteQuestion(this.questionEdit.id)
         .subscribe((repon) => {
           if (repon.success) {
-            // this.reloadData();
-            this.data = repon;
+            if (repon.data.length >= 0) {
+              this.data = repon;
+            }
+          } else {
+            console.log('error');
           }
         });
     }
@@ -128,6 +136,7 @@ export class ManageQuestionComponent {
     this.questionService.getQuestions().subscribe((questions) => {
       if (questions.success) {
         this.data = questions;
+      } else {
       }
     });
   }
